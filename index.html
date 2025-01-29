@@ -75,7 +75,19 @@
 
 
 
+/* Style du bouton */
+.reset-view-button {
+    background: white !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    border: 2px solid rgba(0,0,0,0.2) !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+}
 
+.reset-view-button:hover {
+    background: #f8f9fa !important;
+}
 
 
 
@@ -161,13 +173,7 @@
 
   
      ];
-      // Ajouter ce contrôle en haut à droite
-L.control.resetView({
-    position: 'topright',
-    title: 'Voir tous les points',
-    latlng: markerBounds.getCenter(),
-    zoom: map.getBoundsZoom(markerBounds)
-}).addTo(map);
+
 
         // Fonction pour définir la couleur du marqueur en fonction du spectacle
         function getMarkerColor(spectacle) {
@@ -216,7 +222,21 @@ let markerBounds = L.latLngBounds([]); // Créer un cadre vide
 
 Copy
 
-  
+  // Après avoir défini markerBounds et ajouté tous les marqueurs :
+
+// Créer le bouton de réinitialisation
+const resetControl = L.control.resetView({
+    position: 'topright', // Position sur la carte
+    title: 'Réinitialiser le zoom', // Texte au survol
+    latlng: markerBounds.getCenter(), // Centre sur les points
+    zoom: map.getBoundsZoom(markerBounds) // Zoom initial calculé
+});
+
+// Ajouter le contrôle à la carte
+resetControl.addTo(map);
+
+// Optionnel : Style personnalisé
+document.querySelector('.reset-view-button').innerHTML = '🔍'; // Emoji loupe
     </script>
 </body>
 </html>
