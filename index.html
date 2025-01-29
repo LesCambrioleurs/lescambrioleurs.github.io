@@ -97,6 +97,7 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-resetview@1.0.0/src/L.Control.ResetView.js"></script>
     <script>
         const map = L.map('map', { zoomControl: true });
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -208,6 +209,13 @@ let markerBounds = L.latLngBounds([]); // Créer un cadre vide
 
 Copy
 
+        // Ajouter ce contrôle en haut à droite
+L.control.resetView({
+    position: 'topright',
+    title: 'Voir tous les points',
+    latlng: markerBounds.getCenter(),
+    zoom: map.getBoundsZoom(markerBounds)
+}).addTo(map);
 
     </script>
 </body>
