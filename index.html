@@ -161,6 +161,13 @@
 
   
      ];
+      // Ajouter ce contrôle en haut à droite
+L.control.resetView({
+    position: 'topright',
+    title: 'Voir tous les points',
+    latlng: markerBounds.getCenter(),
+    zoom: map.getBoundsZoom(markerBounds)
+}).addTo(map);
 
         // Fonction pour définir la couleur du marqueur en fonction du spectacle
         function getMarkerColor(spectacle) {
@@ -209,14 +216,7 @@ let markerBounds = L.latLngBounds([]); // Créer un cadre vide
 
 Copy
 
-        // Ajouter ce contrôle en haut à droite
-L.control.resetView({
-    position: 'topright',
-    title: 'Voir tous les points',
-    latlng: markerBounds.getCenter(),
-    zoom: map.getBoundsZoom(markerBounds)
-}).addTo(map);
-
+  
     </script>
 </body>
 </html>
