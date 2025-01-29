@@ -47,9 +47,47 @@
             border-radius: 50%;
             margin-right: 10px;
         }
+
+
+
+/* TITRE */
+   .header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .header h1 {
+            margin: 0;
+            color: #333;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        /* MODIFIER LE BODY POUR L'ADAPTER */
+        body {
+            /* ... (conserver les autres propriétés) ... */
+            height: 100vh;
+            margin: 0; /* Ajout pour supprimer les marges par défaut */
+        }
+
+
+
+
+
+
+
+
+        
     </style>
 </head>
 <body>
+
+ <div class="header">
+        <h1>Lieux de tournées des spectacles 2024</h1>
+    </div>
+    
     <div id="map"></div>
 
     <div class="legend">
