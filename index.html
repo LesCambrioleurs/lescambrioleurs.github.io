@@ -88,7 +88,7 @@
         <h1>Lieux de tournées des spectacles 2024</h1>
     </div>
     
-    <div id="map"></div>
+     <div id="map"></div>
 
     <div class="legend">
         <div><span style="background-color: #00a933;"></span> Éducations Sentimentales</div>
@@ -98,7 +98,7 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        const map = L.map('map').setView([46.2276, 2.2137], 6);
+        const map = L.map('map', { zoomControl: true });
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
@@ -174,7 +174,7 @@
                     return "#000000"; // Noir par défaut
             }
         }
-
+let markerBounds = L.latLngBounds([]); // Créer un cadre vide
         tournees.forEach(tournee => {
             const popupContent = `
                 <div class="popup-content">
@@ -189,7 +189,7 @@
                     <strong>Label:</strong> ${tournee.label}
                 </div>
             `;
-
+  markerBounds.extend(tournee.coords);
             // Créer un marqueur avec la couleur spécifique
             L.marker(tournee.coords, {
                 icon: L.divIcon({
@@ -200,6 +200,15 @@
                 .addTo(map)
                 .bindPopup(popupContent);
         });
+        
+        map.fitBounds(markerBounds, {
+    padding: [30, 30], // Marge interne en pixels
+    maxZoom: 12 // Zoom maximum autorisé (ajustable)
+});
+
+Copy
+
+
     </script>
 </body>
 </html>
