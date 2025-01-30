@@ -109,7 +109,7 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-resetview@1.0.0/src/L.Control.ResetView.js"></script>
+  
     <script>
         const map = L.map('map', { zoomControl: true });
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -208,7 +208,7 @@ let markerBounds = L.latLngBounds([]); // Créer un cadre vide
             L.marker(tournee.coords, {
                 icon: L.divIcon({
                     className: 'custom-icon',
-                    html: `<div style="width: 20px; height: 20px; background-color: ${getMarkerColor(tournee.spectacle)}; border-radius: 50%;"></div>`
+                    html: `<div style="width: 10px; height: 10px; background-color: ${getMarkerColor(tournee.spectacle)}; border-radius: 50%;"></div>`
                 })
             })
                 .addTo(map)
@@ -222,21 +222,9 @@ let markerBounds = L.latLngBounds([]); // Créer un cadre vide
 
 Copy
 
-  // Après avoir défini markerBounds et ajouté tous les marqueurs :
 
-// Créer le bouton de réinitialisation
-const resetControl = L.control.resetView({
-    position: 'topright', // Position sur la carte
-    title: 'Réinitialiser le zoom', // Texte au survol
-    latlng: markerBounds.getCenter(), // Centre sur les points
-    zoom: map.getBoundsZoom(markerBounds) // Zoom initial calculé
-});
 
-// Ajouter le contrôle à la carte
-resetControl.addTo(map);
 
-// Optionnel : Style personnalisé
-document.querySelector('.reset-view-button').innerHTML = '🔍'; // Emoji loupe
     </script>
 </body>
 </html>
