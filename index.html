@@ -48,10 +48,8 @@
             margin-right: 10px;
         }
 
-
-
-/* TITRE */
-   .header {
+        /* TITRE */
+        .header {
             background: white;
             padding: 15px 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -67,45 +65,54 @@
 
         /* MODIFIER LE BODY POUR L'ADAPTER */
         body {
-            /* ... (conserver les autres propriétés) ... */
             height: 100vh;
-            margin: 0; /* Ajout pour supprimer les marges par défaut */
+            margin: 0;
         }
 
+        /* Style du bouton */
+        .reset-view-button {
+            background: white !important;
+            padding: 5px 10px !important;
+            border-radius: 5px !important;
+            border: 2px solid rgba(0,0,0,0.2) !important;
+            cursor: pointer !important;
+            font-weight: bold !important;
+        }
 
-
-
-/* Style du bouton */
-.reset-view-button {
-    background: white !important;
-    padding: 5px 10px !important;
-    border-radius: 5px !important;
-    border: 2px solid rgba(0,0,0,0.2) !important;
-    cursor: pointer !important;
-    font-weight: bold !important;
-}
-
-.reset-view-button:hover {
-    background: #f8f9fa !important;
-}
-
-
-
+        .reset-view-button:hover {
+            background: #f8f9fa !important;
+        }
         
+        .stat-box {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 80px;
+            right: 10px;
+            z-index: 1000;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-
- <div class="header">
+    <div class="header">
         <h1>Lieux de tournées des spectacles 2024</h1>
     </div>
     
-     <div id="map"></div>
+    <div id="map"></div>
 
     <div class="legend">
         <div><span style="background-color: #00a933;"></span> Éducations Sentimentales</div>
         <div><span style="background-color: #9973e1;"></span> La Tendresse</div>
         <div><span style="background-color: #5b9bd5;"></span> Désobéir</div>
+    </div>
+
+    <div class="stat-box">
+        <div><strong>Statistiques</strong></div>
+        <div id="total-spectateurs">Total spectateurs: Chargement...</div>
+        <div id="moyenne-frequentation">Fréquentation moyenne: Chargement...</div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -117,7 +124,7 @@
         }).addTo(map);
 
         const tournees = [
-  { spectacle: "Désobéir", lieu: "Théâtre Forum Meyrin", ville: "Genève", pays: "Suisse", region: "International", dateDebut: "16/01/24", dateFin: "16/01/24", label: "non labellisé", representations: 1, spectateurs: 300, coords: [46.2044, 6.1432] },
+           { spectacle: "Désobéir", lieu: "Théâtre Forum Meyrin", ville: "Genève", pays: "Suisse", region: "International", dateDebut: "16/01/24", dateFin: "16/01/24", label: "non labellisé", representations: 1, spectateurs: 300, coords: [46.2044, 6.1432] },
   { spectacle: "Désobéir", lieu: "Théâtre Nebia", ville: "Bienne", pays: "Suisse", region: "International", dateDebut: "18/01/24", dateFin: "19/01/24", label: "non labellisé", representations: 2, spectateurs: 600, coords: [47.1366, 7.2468] },
   { spectacle: "Désobéir", lieu: "Théâtre de la Renaissance", ville: "Oullins", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "25/01/24", dateFin: "26/01/24", label: "Scène conventionnée", representations: 2, spectateurs: 600, coords: [45.7175, 4.8083] },
   { spectacle: "Éducations Sentimentales", lieu: "Lycée Hippolyte Fontaine", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "29/01/24", dateFin: "01/02/24", label: "non labellisé", representations: 5, spectateurs: 150, coords: [47.3220, 5.0415] },
@@ -170,8 +177,8 @@
   { spectacle: "Éducations Sentimentales", lieu: "DSN Dieppe, Scène nationale", ville: "Dieppe", pays: "France", region: "Normandie", dateDebut: "02/12/24", dateFin: "06/12/24", label: "Scène nationale", representations: 1, spectateurs: 69, jauge: 70, frequentation: 98.57, coords: [49.9213, 1.0775] },
   { spectacle: "Éducations Sentimentales", lieu: "Comédie de Caen, CDN", ville: "Caen", pays: "France", region: "Normandie", dateDebut: "09/12/24", dateFin: "13/12/24", label: "Centre Dramatique National", representations: 2, spectateurs: 147, jauge: 73.5, frequentation: 100.00, coords: [49.1829, -0.3707] },
   { spectacle: "La Tendresse", lieu: "Théâtre de Villefranche-sur-Saône", ville: "Villefranche-sur-Saône", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "20/12/24", dateFin: "20/12/24", label: "Scène conventionnée", representations: 1, spectateurs: 634, jauge: 650, frequentation: 97.54, coords: [45.9899, 4.7194] }
-];
 
+        ];
 
         // Fonction pour définir la couleur du marqueur en fonction du spectacle
         function getMarkerColor(spectacle) {
@@ -186,8 +193,19 @@
                     return "#000000"; // Noir par défaut
             }
         }
-let markerBounds = L.latLngBounds([]); // Créer un cadre vide
+        
+        let markerBounds = L.latLngBounds([]);
+        let totalSpectateurs = 0;
+        let frequentations = [];
+        
         tournees.forEach(tournee => {
+            // Calcul des statistiques
+            totalSpectateurs += tournee.spectateurs;
+            if (tournee.frequentation) {
+                frequentations.push(tournee.frequentation);
+            }
+            
+            // Contenu du popup avec la fréquentation ajoutée
             const popupContent = `
                 <div class="popup-content">
                     <strong>Spectacle:</strong> ${tournee.spectacle}<br>
@@ -198,10 +216,14 @@ let markerBounds = L.latLngBounds([]); // Créer un cadre vide
                     <strong>Dates:</strong> ${tournee.dateDebut} - ${tournee.dateFin}<br>
                     <strong>Représentations:</strong> ${tournee.representations}<br>
                     <strong>Spectateurs:</strong> ${tournee.spectateurs}<br>
+                    ${tournee.jauge ? `<strong>Jauge:</strong> ${tournee.jauge}<br>` : ''}
+                    ${tournee.frequentation ? `<strong>Frequentation:</strong> ${tournee.frequentation.toFixed(2)}%<br>` : ''}
                     <strong>Label:</strong> ${tournee.label}
                 </div>
             `;
-  markerBounds.extend(tournee.coords);
+            
+            markerBounds.extend(tournee.coords);
+            
             // Créer un marqueur avec la couleur spécifique
             L.marker(tournee.coords, {
                 icon: L.divIcon({
@@ -209,20 +231,50 @@ let markerBounds = L.latLngBounds([]); // Créer un cadre vide
                     html: `<div style="width: 10px; height: 10px; background-color: ${getMarkerColor(tournee.spectacle)}; border-radius: 50%;"></div>`
                 })
             })
-                .addTo(map)
-                .bindPopup(popupContent);
+            .addTo(map)
+            .bindPopup(popupContent);
         });
         
+        // Calcul de la moyenne de fréquentation
+        const moyenneFrequentation = frequentations.length > 0 
+            ? frequentations.reduce((a, b) => a + b, 0) / frequentations.length
+            : 0;
+        
+        // Mise à jour des statistiques
+        document.getElementById('total-spectateurs').textContent = `Total spectateurs: ${totalSpectateurs}`;
+        document.getElementById('moyenne-frequentation').textContent = `Fréquentation moyenne: ${moyenneFrequentation.toFixed(2)}%`;
+        
         map.fitBounds(markerBounds, {
-    padding: [30, 30], // Marge interne en pixels
-    maxZoom: 12 // Zoom maximum autorisé (ajustable)
-});
-
-Copy
-
-
-
-
+            padding: [30, 30],
+            maxZoom: 12
+        });
+        
+        // Ajout du bouton de réinitialisation
+        L.Control.ResetView = L.Control.extend({
+            onAdd: function(map) {
+                const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+                const button = L.DomUtil.create('a', 'reset-view-button', container);
+                button.href = '#';
+                button.title = 'Réinitialiser la vue';
+                button.innerHTML = '⟳';
+                
+                L.DomEvent.on(button, 'click', function(e) {
+                    e.preventDefault();
+                    map.fitBounds(markerBounds, {
+                        padding: [30, 30],
+                        maxZoom: 12
+                    });
+                });
+                
+                return container;
+            }
+        });
+        
+        L.control.resetView = function(opts) {
+            return new L.Control.ResetView(opts);
+        };
+        
+        L.control.resetView({ position: 'topleft' }).addTo(map);
     </script>
 </body>
 </html>
