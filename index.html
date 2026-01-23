@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournées des Spectacles</title>
+    <title>Tournées des Spectacles 2024-2025</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
@@ -48,22 +48,41 @@
             margin-right: 10px;
         }
 
-        /* TITRE */
+        /* HEADER ET CONTROLES */
         .header {
             background: white;
             padding: 15px 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .header h1 {
             margin: 0;
             color: #333;
             font-size: 1.5em;
-            text-align: center;
         }
 
-        /* MODIFIER LE BODY POUR L'ADAPTER */
+        .year-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .year-selector label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .year-selector select {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+
         body {
             height: 100vh;
             margin: 0;
@@ -94,37 +113,424 @@
             z-index: 1000;
             font-size: 14px;
         }
+        
+        .legend-2022, .legend-2023, .legend-2024, .legend-2025 {
+            display: none;
+        }
+        
+        .legend.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Lieux de tournées des spectacles 2025</h1>
+        <h1>Lieux de tournées des spectacles</h1>
+        <div class="year-selector">
+            <label for="yearSelect">Année :</label>
+            <select id="yearSelect">
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+               
+               
+                
+                <option value="all">Toutes les années</option>
+            </select>
+        </div>
     </div>
     
     <div id="map"></div>
 
-    <div class="legend">
+2. Brest (48.3904, -4.4860)
+
+    2022 : La Tendresse au "Maison du Théâtre / Le Quartz"
+
+    2022 : Désobéir au "Représentation Hors Les Murs, l'ENIB"
+
+    2023 : Désobéir au "Lycée Amiral Ronarc'h au centre culturel de Bellevue"
+
+    2025 : Éducations Sentimentales au "Le Quartz"
+
+3. Paris (48.8566, 2.3522)
+
+    2022 : La Tendresse au "Théâtre des Bouffes du Nord"
+
+    2022 : Désobéir à la "Grande Halle de la Villette"
+
+    2022 : Désobéir au "Théâtre du Rond-Point"
+
+    2023 : La Tendresse au "Théâtre des Bouffes du Nord"
+
+    2024 : Éducations Sentimentales au "Festival Paris L'Été"
+
+4. Épinal (48.1725, 6.4494)
+
+    2022 : Désobéir à "Scène Vosges"
+
+    2023 : La Tendresse à "Scène Vosges"
+
+5. Bourg-en-Bresse (46.2058, 5.2258)
+
+    2022 : La Tendresse au "Théâtre de Bourg-en-Bresse"
+
+    2022 : Désobéir au "Théâtre de Bourg-en-Bresse"
+
+6. Angoulême (45.6489, 0.1561)
+
+    2022 : Désobéir au "Théâtre d'Angoulême"
+
+    2023 : La Tendresse au "Théâtre d'Angoulême"
+
+7. Mende (44.5176, 3.5014)
+
+    2022 : Désobéir au "Théâtre de Mende"
+
+    2023 : La Tendresse au "Théâtre de Mende"
+
+8. Rennes (48.1173, -1.6778)
+
+    2022 : La Tendresse au "Festival Mythos"
+
+    2023 : Désobéir au "Festival Mythos"
+
+9. Namur, Belgique (50.4674, 4.8718)
+
+    2023 : Désobéir au "Théâtre Royal de Namur"
+
+    2023 : La Tendresse au "Théâtre Royal de Namur"
+
+10. Choisy-le-Roi (48.7655, 2.4090)
+
+    2022 : Désobéir au "Théâtre de Choisy-le-Roi"
+
+    2023 : La Tendresse au "Théâtre de Choisy-le-Roi"
+
+11. Luxembourg (49.6116, 6.1319)
+
+    2022 : La Tendresse aux "Théâtres de la Ville de Luxembourg"
+
+    2024 : Éducations Sentimentales aux "Théâtres de la Ville de Luxembourg"
+
+    2024 : La Tendresse aux "Théâtres de la Ville de Luxembourg"
+
+12. Lyon (45.7640, 4.8357) / (45.7580, 4.8360)
+
+    2023 : La Tendresse au "Théâtre de la Croix Rousse"
+
+    2024 : Désobéir au "Théâtre de la Croix Rousse"
+
+13. Genève, Suisse (46.2044, 6.1432)
+
+    2024 : Désobéir au "Théâtre Forum Meyrin"
+
+    2024 : La Tendresse au "Théâtre Forum Meyrin"
+
+14. Bienne, Suisse (47.1366, 7.2468)
+
+    2024 : Désobéir au "Théâtre Nebia"
+
+    2024 : La Tendresse au "Théâtre Nebia"
+
+
+
+17. Laval (48.0735, -0.7684) / (48.0731, -0.7161)
+
+    2023 : Désobéir aux "Les 3E saison de l'Ernée"
+
+    2024 : La Tendresse au "Théâtre de Laval"
+
+18. Tours (47.3941, 0.6848) / (47.3495, 0.7482)
+
+    2022 : Désobéir à l'"Université de Tours"
+
+    2024 : La Tendresse au "CDN Tours / Théâtre Universitaire"
+
+19. Tournai, Belgique (50.6053, 3.3872) / (50.6064, 3.3878)
+
+    2022 : Désobéir à la "Maison de la Culture de Tournai"
+
+    2024 : La Tendresse à la "Maison de la Culture de Tournai"
+
+20. Québec, Canada (46.8139, -71.2080) / (46.8139, -71.3080)
+
+    2022 : Désobéir au "Festival Carrefour international de théâtre"
+
+    2024 : La Tendresse au "Festival Carrefour international de théâtre"
+
+21. Foix (42.9604, 1.6075) / (42.9644, 1.6053)
+
+    2022 : Désobéir à "L'Estive - Scène nationale de Foix et de l'Ariège"
+
+    2024 : La Tendresse à "L'Estive - Scène nationale de Foix et de l'Ariège"
+
+22. Angers (47.4784, -0.5632)
+
+    2024 : Désobéir au "Festival d'Anjou"
+
+    2024 : La Tendresse au "Le Quai, CDN"
+
+23. Dieppe (49.9213, 1.0775)
+
+    2024 : Éducations Sentimentales au "DSN Dieppe, Scène nationale"
+
+    2025 : La Tendresse au "DSN"
+
+24. Villefranche-sur-Saône (45.9892, 4.7197) / (45.9899, 4.7194)
+
+    2022 : Désobéir au "Théâtre de Villefranche-sur-Saône"
+
+    2024 : La Tendresse au "Théâtre de Villefranche-sur-Saône"
+
+25. Montbéliard (47.5080, 6.7985) / (47.5289, 6.1478)
+
+    2022 : Désobéir à "MA, Scène nat. - Pays de Montbéliard"
+
+    2024 : La Tendresse à "MA, Scène nat. - Pays de Montbéliard"-->
+
+
+   <!-- Légende pour 2022 -->
+    <div class="legend legend-2022" id="legend-2022">
+        <div><strong>2022</strong></div>
         <div><span style="background-color: #00a933;"></span> Éducations Sentimentales</div>
         <div><span style="background-color: #9973e1;"></span> La Tendresse</div>
         <div><span style="background-color: #5b9bd5;"></span> Désobéir</div>
+    </div>
+
+
+
+
+   <!-- Légende pour 2023 -->
+    <div class="legend legend-2023" id="legend-2023">
+        <div><strong>2023</strong></div>
+        <div><span style="background-color: #00a933;"></span> Éducations Sentimentales</div>
+        <div><span style="background-color: #9973e1;"></span> La Tendresse</div>
+        <div><span style="background-color: #5b9bd5;"></span> Désobéir</div>
+    </div>
+
+
+
+
+    <!-- Légende pour 2024 -->
+    <div class="legend legend-2024" id="legend-2024">
+        <div><strong>2024</strong></div>
+        <div><span style="background-color: #00a933;"></span> Éducations Sentimentales</div>
+        <div><span style="background-color: #9973e1;"></span> La Tendresse</div>
+        <div><span style="background-color: #5b9bd5;"></span> Désobéir</div>
+    </div>
+
+    <!-- Légende pour 2025 -->
+    <div class="legend legend-2025" id="legend-2025">
+        <div><strong>2025</strong></div>
+        <div><span style="background-color: #00a933;"></span> Éducations Sentimentales</div>
+        <div><span style="background-color: #9973e1;"></span> La Tendresse</div>
+        <div><span style="background-color: #5b9bd5;"></span> Désobéir</div>
+    </div>
+
+    <!-- Légende pour toutes les années -->
+    <div class="legend legend-all" id="legend-all">
+        <div><strong>Toutes les années</strong></div>
+        <div><span style="background-color: #00a933;"></span> Éducations Sentimentales</div>
+        <div><span style="background-color: #9973e1;"></span> La Tendresse</div>
+        <div><span style="background-color: #5b9bd5;"></span> Désobéir</div>
+    <!--        <div style="margin-top: 10px;">
+            <div><span style="background-color: transparent; border: 2px solid #333;"></span> Année 2024</div>
+            <div><span style="background-color: #333; border: 2px solid #333;"></span> Année 2025</div>
+        </div> -->
     </div>
 
     <div class="stat-box">
         <div><strong>Statistiques</strong></div>
         <div id="total-spectateurs">Total spectateurs: Chargement...</div>
         <div id="moyenne-frequentation">Fréquentation moyenne: Chargement...</div>
+        <div id="annee-selectionnee">Année: 2025</div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
     <script>
-        const map = L.map('map', { zoomControl: true });
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        // Données des tournées
+        
+             const tournees2022 = [
+        
+{ spectacle: "La Tendresse", lieu: "Scène nationale de Maubeuge", ville: "Maubeuge", pays: "France", region: "Hauts-de-France", dateDebut: "04/01/22", dateFin: "04/01/22", label: "Scène nationale", representations: 1, spectateurs: 540, jauge: 0, frequentation: 0, coords: [50.2785, 3.9727] },
+{ spectacle: "Désobéir", lieu: "Le Rayon Vert", ville: "St Valéry-en-Caux", pays: "France", region: "Normandie", dateDebut: "05/01/22", dateFin: "05/01/22", label: "Scène conventionnée", representations: 1, spectateurs: 241, jauge: 0, frequentation: 0, coords: [49.8639, 0.7100] },
+{ spectacle: "Désobéir", lieu: "Théâtre Georges Simenon", ville: "Rosny-sous-Bois", pays: "France", region: "Île-de-France", dateDebut: "07/01/22", dateFin: "08/01/22", label: "non labellisé", representations: 2, spectateurs: 512, jauge: 0, frequentation: 0, coords: [48.8702, 2.4821] },
+{ spectacle: "Désobéir", lieu: "Scène Vosges", ville: "Epinal", pays: "France", region: "Grand Est", dateDebut: "10/01/22", dateFin: "11/01/22", label: "Scène conventionnée", representations: 3, spectateurs: 1476, jauge: 0, frequentation: 0, coords: [48.1725, 6.4494] },
+{ spectacle: "Désobéir", lieu: "Espace Jéliote", ville: "Oloron Ste Marie", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "15/01/22", dateFin: "15/01/22", label: "non labellisé", representations: 1, spectateurs: 347, jauge: 0, frequentation: 0, coords: [43.1944, -0.6105] },
+{ spectacle: "Désobéir", lieu: "Théâtre d'Angoulême", ville: "Angoulême", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "18/01/22", dateFin: "18/01/22", label: "Scène nationale", representations: 1, spectateurs: 653, jauge: 0, frequentation: 0, coords: [45.6489, 0.1561] },
+{ spectacle: "Désobéir", lieu: "Théâtre Le Liburnia", ville: "Libourne", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "20/01/22", dateFin: "20/01/22", label: "non labellisé", representations: 1, spectateurs: 459, jauge: 0, frequentation: 0, coords: [44.9151, -0.2439] },
+{ spectacle: "La Tendresse", lieu: "SN61 - Scène nationale d'Alençon", ville: "Alençon", pays: "France", region: "Normandie", dateDebut: "20/01/22", dateFin: "20/01/22", label: "Scène nationale", representations: 1, spectateurs: 540, jauge: 0, frequentation: 0, coords: [48.4307, 0.0931] },
+{ spectacle: "Désobéir", lieu: "Espace d'Albret", ville: "Nérac", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "25/01/22", dateFin: "25/01/22", label: "non labellisé", representations: 1, spectateurs: 255, jauge: 0, frequentation: 0, coords: [44.1358, 0.3417] },
+{ spectacle: "La Tendresse", lieu: "Points Communs - Scène nationale de Cergy-Pontoise", ville: "Cergy-Pontoise", pays: "France", region: "Île-de-France", dateDebut: "26/01/22", dateFin: "27/01/22", label: "Scène nationale", representations: 3, spectateurs: 742, jauge: 0, frequentation: 0, coords: [49.0369, 2.0775] },
+{ spectacle: "Désobéir", lieu: "Théâtre de Mende", ville: "Mende", pays: "France", region: "Occitanie", dateDebut: "27/01/22", dateFin: "27/01/22", label: "non labellisé", representations: 1, spectateurs: 765, jauge: 0, frequentation: 0, coords: [44.5176, 3.5014] },
+{ spectacle: "Désobéir", lieu: "Astrolabe du Grand Figeac", ville: "Figeac", pays: "France", region: "Occitanie", dateDebut: "29/01/22", dateFin: "29/01/22", label: "non labellisé", representations: 1, spectateurs: 340, jauge: 0, frequentation: 0, coords: [44.6089, 2.0314] },
+{ spectacle: "Désobéir", lieu: "Théâtre de la Cité - CDN de Toulouse", ville: "Toulouse", pays: "France", region: "Occitanie", dateDebut: "01/02/22", dateFin: "06/02/22", label: "Centre Dramatique National", representations: 4, spectateurs: 1634, jauge: 0, frequentation: 0, coords: [43.6100, 1.4540] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de la Cité - CDN de Toulouse", ville: "Toulouse", pays: "France", region: "Occitanie", dateDebut: "02/02/22", dateFin: "06/02/22", label: "Centre Dramatique National", representations: 4, spectateurs: 1000, jauge: 0, frequentation: 0, coords: [43.6045, 1.4440] },
+{ spectacle: "Désobéir", lieu: "L'Estive - Scène nationale de Foix et de l'Ariège", ville: "Foix", pays: "France", region: "Occitanie", dateDebut: "08/02/22", dateFin: "08/02/22", label: "Scène nationale", representations: 1, spectateurs: 568, jauge: 0, frequentation: 0, coords: [42.9604, 1.6075] },
+{ spectacle: "La Tendresse", lieu: "Espace 1789", ville: "Saint-Ouen", pays: "France", region: "Île-de-France", dateDebut: "10/02/22", dateFin: "11/02/22", label: "Scène conventionnée", representations: 2, spectateurs: 800, jauge: 0, frequentation: 0, coords: [48.9120, 2.3330] },
+{ spectacle: "Désobéir", lieu: "Théâtre National", ville: "Bruxelles", pays: "Belgique", region: "International", dateDebut: "12/02/22", dateFin: "19/02/22", label: "non labellisé", representations: 7, spectateurs: 1851, jauge: 0, frequentation: 0, coords: [50.8503, 4.3517] },
+{ spectacle: "La Tendresse", lieu: "EPCC TRIO...S", ville: "Inzinzac-Lochrist", pays: "France", region: "Bretagne", dateDebut: "23/02/22", dateFin: "23/02/22", label: "non labellisé", representations: 1, spectateurs: 405, jauge: 0, frequentation: 0, coords: [47.8439, -3.2569] },
+{ spectacle: "La Tendresse", lieu: "Scènes du Golfe", ville: "Vannes", pays: "France", region: "Bretagne", dateDebut: "25/02/22", dateFin: "26/02/22", label: "Scène conventionnée", representations: 2, spectateurs: 1440, jauge: 0, frequentation: 0, coords: [47.6582, -2.7608] },
+{ spectacle: "La Tendresse", lieu: "La Passerelle - Scène nationale de St Brieuc", ville: "St Brieuc", pays: "France", region: "Bretagne", dateDebut: "01/03/22", dateFin: "02/03/22", label: "Scène nationale", representations: 2, spectateurs: 1345, jauge: 0, frequentation: 0, coords: [48.5136, -2.7653] },
+{ spectacle: "Désobéir", lieu: "L'Agora", ville: "Boulazac", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "03/03/22", dateFin: "03/03/22", label: "non labellisé", representations: 1, spectateurs: 417, jauge: 0, frequentation: 0, coords: [45.1859, 0.7803] },
+{ spectacle: "La Tendresse", lieu: "Le Canal", ville: "Redon", pays: "France", region: "Bretagne", dateDebut: "04/03/22", dateFin: "04/03/22", label: "Scène conventionnée", representations: 1, spectateurs: 443, jauge: 0, frequentation: 0, coords: [47.6521, -2.0848] },
+{ spectacle: "Désobéir", lieu: "L'Astrada", ville: "Marciac", pays: "France", region: "Occitanie", dateDebut: "05/03/22", dateFin: "05/03/22", label: "non labellisé", representations: 1, spectateurs: 424, jauge: 0, frequentation: 0, coords: [43.5236, 0.1611] },
+{ spectacle: "Désobéir", lieu: "Théâtre de Choisy-le-Roi", ville: "Choisy-le-Roi", pays: "France", region: "Île-de-France", dateDebut: "08/03/22", dateFin: "08/03/22", label: "non labellisé", representations: 1, spectateurs: 287, jauge: 0, frequentation: 0, coords: [48.7655, 2.4090] },
+{ spectacle: "Désobéir", lieu: "Théâtre de Gonesse", ville: "Gonesse", pays: "France", region: "Île-de-France", dateDebut: "13/03/22", dateFin: "13/03/22", label: "non labellisé", representations: 1, spectateurs: 595, jauge: 0, frequentation: 0, coords: [48.9867, 2.4489] },
+{ spectacle: "Désobéir", lieu: "L'Espace 93", ville: "Clichy", pays: "France", region: "Île-de-France", dateDebut: "15/03/22", dateFin: "15/03/22", label: "non labellisé", representations: 1, spectateurs: 374, jauge: 0, frequentation: 0, coords: [48.9042, 2.3064] },
+{ spectacle: "La Tendresse", lieu: "Théâtre Gérard Philipe", ville: "Saint-Denis", pays: "France", region: "Île-de-France", dateDebut: "16/03/22", dateFin: "01/04/22", label: "Centre Dramatique National", representations: 15, spectateurs: 3648, jauge: 0, frequentation: 0, coords: [48.9356, 2.3539] },
+{ spectacle: "Désobéir", lieu: "Le Dôme Théâtre", ville: "Albertville", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "22/03/22", dateFin: "22/03/22", label: "Scène conventionnée", representations: 1, spectateurs: 551, jauge: 0, frequentation: 0, coords: [45.6746, 6.3916] },
+{ spectacle: "Désobéir", lieu: "Théâtre Le Vellein", ville: "Villefontaine", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "24/03/22", dateFin: "24/03/22", label: "non labellisé", representations: 1, spectateurs: 823, jauge: 0, frequentation: 0, coords: [45.6139, 5.1522] },
+{ spectacle: "Désobéir", lieu: "L'Heure Bleue", ville: "St Martin d'Hères", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "26/03/22", dateFin: "26/03/22", label: "non labellisé", representations: 1, spectateurs: 442, jauge: 0, frequentation: 0, coords: [45.1833, 5.7667] },
+{ spectacle: "Désobéir", lieu: "Théâtre de Villefranche-sur-Saône", ville: "Villefranche-sur-Saône", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "29/03/22", dateFin: "29/03/22", label: "Scène conventionnée", representations: 1, spectateurs: 531, jauge: 0, frequentation: 0, coords: [45.9892, 4.7197] },
+{ spectacle: "La Tendresse", lieu: "Festival Mythos", ville: "Rennes", pays: "France", region: "Bretagne", dateDebut: "04/04/22", dateFin: "05/04/22", label: "non labellisé", representations: 2, spectateurs: 548, jauge: 0, frequentation: 0, coords: [48.1173, -1.6778] },
+{ spectacle: "Désobéir", lieu: "MA, Scène nat. - Pays de Montbéliard", ville: "Montbéliard", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "05/04/22", dateFin: "05/04/22", label: "Scène nationale", representations: 1, spectateurs: 339, jauge: 0, frequentation: 0, coords: [47.5080, 6.7985] },
+{ spectacle: "Désobéir", lieu: "ACB Scène nationale", ville: "Bar-le-Duc", pays: "France", region: "Grand Est", dateDebut: "07/04/22", dateFin: "08/04/22", label: "Scène nationale", representations: 2, spectateurs: 670, jauge: 0, frequentation: 0, coords: [48.7727, 5.1611] },
+{ spectacle: "La Tendresse", lieu: "Maison du Théâtre / Le Quartz", ville: "Brest", pays: "France", region: "Bretagne", dateDebut: "07/04/22", dateFin: "08/04/22", label: "non labellisé", representations: 2, spectateurs: 540, jauge: 0, frequentation: 0, coords: [48.3904, -4.4860] },
+{ spectacle: "Désobéir", lieu: "Les 3T - Scène Conventionnée de Châtellerault", ville: "Châtellerault", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "12/04/22", dateFin: "12/04/22", label: "Scène conventionnée", representations: 1, spectateurs: 323, jauge: 0, frequentation: 0, coords: [46.8171, 0.5452] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de Bourg-en-Bresse", ville: "Bourg-en-Bresse", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "12/04/22", dateFin: "13/04/22", label: "Scène nationale", representations: 2, spectateurs: 810, jauge: 0, frequentation: 0, coords: [46.2058, 5.2258] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de Châtillon", ville: "Châtillon", pays: "France", region: "Île-de-France", dateDebut: "22/04/22", dateFin: "22/04/22", label: "non labellisé", representations: 1, spectateurs: 258, jauge: 0, frequentation: 0, coords: [48.8022, 2.2908] },
+{ spectacle: "La Tendresse", lieu: "Châteauvallon-Liberté - Scène nationale de Toulon", ville: "Toulon", pays: "France", region: "Provence-Alpes-Côte d'Azur", dateDebut: "28/04/22", dateFin: "29/04/22", label: "Scène nationale", representations: 2, spectateurs: 1297, jauge: 0, frequentation: 0, coords: [43.1242, 5.9280] },
+{ spectacle: "Désobéir", lieu: "Théâtre de Bourg-en-Bresse", ville: "Bourg-en-Bresse", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "03/05/22", dateFin: "04/05/22", label: "Scène nationale", representations: 2, spectateurs: 765, jauge: 0, frequentation: 0, coords: [46.2058, 5.2258] },
+{ spectacle: "La Tendresse", lieu: "Théâtre des Bouffes du Nord", ville: "Paris", pays: "France", region: "Île-de-France", dateDebut: "04/05/22", dateFin: "25/05/22", label: "non labellisé", representations: 16, spectateurs: 5304, jauge: 0, frequentation: 0, coords: [48.8566, 2.3522] },
+{ spectacle: "Désobéir", lieu: "Représentation Hors Les Murs, l'ENIB", ville: "Brest", pays: "France", region: "Bretagne", dateDebut: "10/05/22", dateFin: "10/05/22", label: "non labellisé", representations: 1, spectateurs: 30, jauge: 0, frequentation: 0, coords: [48.3904, -4.4860] },
+{ spectacle: "Désobéir", lieu: "Ferme du Buisson", ville: "Noisiel", pays: "France", region: "Île-de-France", dateDebut: "13/05/22", dateFin: "13/05/22", label: "non labellisé", representations: 1, spectateurs: 451, jauge: 0, frequentation: 0, coords: [48.8547, 2.6283] },
+{ spectacle: "Désobéir", lieu: "Bonlieu Scène nationale Annecy", ville: "Annecy", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "17/05/22", dateFin: "19/05/22", label: "Scène nationale", representations: 3, spectateurs: 772, jauge: 0, frequentation: 0, coords: [45.901676346215446, 6.128100657680382] },
+{ spectacle: "Désobéir", lieu: "Festival Carrefour international de théâtre", ville: "Québec", pays: "Canada", region: "International", dateDebut: "24/05/22", dateFin: "28/05/22", label: "non labellisé", representations: 3, spectateurs: 945, jauge: 0, frequentation: 0, coords: [46.8139, -71.3080] },
+{ spectacle: "Désobéir", lieu: "Grande Halle de la Villette", ville: "Paris", pays: "France", region: "Île-de-France", dateDebut: "31/05/22", dateFin: "04/06/22", label: "non labellisé", representations: 5, spectateurs: 1450, jauge: 0, frequentation: 0, coords: [48.8566, 2.3522] },
+{ spectacle: "Désobéir", lieu: "Théâtre du Rond-Point", ville: "Paris", pays: "France", region: "Île-de-France", dateDebut: "15/06/22", dateFin: "26/06/22", label: "non labellisé", representations: 11, spectateurs: 1839, jauge: 0, frequentation: 0, coords: [48.8566, 2.3522] },
+{ spectacle: "Désobéir", lieu: "Fête de l'Humanité", ville: "Le Plessis-Pâté", pays: "France", region: "Île-de-France", dateDebut: "11/09/22", dateFin: "11/09/22", label: "non labellisé", representations: 1, spectateurs: 594, jauge: 0, frequentation: 0, coords: [48.6139, 2.3264] },
+{ spectacle: "Désobéir", lieu: "Maison de la Culture de Tournai", ville: "Tournai", pays: "Belgique", region: "International", dateDebut: "11/10/22", dateFin: "11/10/22", label: "non labellisé", representations: 1, spectateurs: 340, jauge: 0, frequentation: 0, coords: [50.6053, 3.3872] },
+{ spectacle: "La Tendresse", lieu: "Théâtres de la Ville de Luxembourg", ville: "Luxembourg", pays: "Luxembourg", region: "International", dateDebut: "18/10/22", dateFin: "19/10/22", label: "non labellisé", representations: 2, spectateurs: 468, jauge: 0, frequentation: 0, coords: [49.6116, 6.1319] },
+{ spectacle: "Désobéir", lieu: "Université de Tours", ville: "Tours", pays: "France", region: "Centre-Val de Loire", dateDebut: "19/10/22", dateFin: "20/10/22", label: "non labellisé", representations: 2, spectateurs: 989, jauge: 0, frequentation: 0, coords: [47.3941, 0.6848] },
+{ spectacle: "Désobéir", lieu: "La Coursive, Scène nationale de La Rochelle", ville: "La Rochelle", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "06/12/22", dateFin: "07/12/22", label: "Scène nationale", representations: 2, spectateurs: 646, jauge: 0, frequentation: 0, coords: [46.1591, -1.1520] },
+{ spectacle: "Désobéir", lieu: "Centre Social Gisèle Halimi", ville: "Allonnes", pays: "France", region: "Pays de la Loire", dateDebut: "16/12/22", dateFin: "17/12/22", label: "non labellisé", representations: 2, spectateurs: 425, jauge: 0, frequentation: 0, coords: [47.9675, 0.1569] }
+        
+        ];
+        
+        
+        
+         const tournees2023 = [
+        
+{ spectacle: "La Tendresse", lieu: "Scène Conv. Arts et Humanités", ville: "Brétigny-sur-Orge", pays: "France", region: "Île-de-France", dateDebut: "07/01/23", dateFin: "07/01/23", label: "Scène conventionnée", representations: 1, spectateurs: 483, jauge: 0, frequentation: 0, coords: [48.6114, 2.3069] },
+{ spectacle: "La Tendresse", lieu: "La Criée", ville: "Marseille", pays: "France", region: "Provence-Alpes-Côte d'Azur", dateDebut: "11/01/23", dateFin: "14/01/23", label: "Centre Dramatique National", representations: 4, spectateurs: 2854, jauge: 0, frequentation: 0, coords: [43.2965, 5.3698] },
+{ spectacle: "La Tendresse", lieu: "Théâtre National Bordeaux Aquitaine CDN", ville: "Bordeaux", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "17/01/23", dateFin: "21/01/23", label: "Centre Dramatique National", representations: 5, spectateurs: 2005, jauge: 0, frequentation: 0, coords: [44.8378, -0.5792] },
+{ spectacle: "La Tendresse", lieu: "Scène Vosges", ville: "Epinal", pays: "France", region: "Grand Est", dateDebut: "24/01/23", dateFin: "24/01/23", label: "Scène conventionnée", representations: 1, spectateurs: 765, jauge: 0, frequentation: 0, coords: [48.1725, 6.4494] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de l'Union, CDN", ville: "Limoges", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "27/01/23", dateFin: "28/01/23", label: "Centre Dramatique National", representations: 2, spectateurs: 669, jauge: 0, frequentation: 0, coords: [45.8336, 1.2611] },
+{ spectacle: "Désobéir", lieu: "Pôle culturel de Chirongui", ville: "Chirongui", pays: "France", region: "Mayotte", dateDebut: "30/01/23", dateFin: "31/01/23", label: "Scène conventionnée", representations: 2, spectateurs: 642, jauge: 0, frequentation: 0, coords: [-12.9319, 45.1483] },
+{ spectacle: "La Tendresse", lieu: "LE TU/ Grand T", ville: "Nantes", pays: "France", region: "Pays de la Loire", dateDebut: "31/01/23", dateFin: "03/02/23", label: "Scène nationale", representations: 4, spectateurs: 1242, jauge: 0, frequentation: 0, coords: [47.2184, -1.5536] },
+{ spectacle: "Désobéir", lieu: "Le Séchoir", ville: "Saint-Leu", pays: "France", region: "La Réunion", dateDebut: "04/02/23", dateFin: "04/02/23", label: "Scène conventionnée", representations: 1, spectateurs: 320, jauge: 0, frequentation: 0, coords: [-21.1700, 55.2883] },
+{ spectacle: "Désobéir", lieu: "Théâtre Luc Donat", ville: "Le Tampon", pays: "France", region: "La Réunion", dateDebut: "07/02/23", dateFin: "07/02/23", label: "non labellisé", representations: 1, spectateurs: 320, jauge: 0, frequentation: 0, coords: [-21.2775, 55.5172] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de Saint Quentin en Yvelines", ville: "Saint-Quentin-en-Yvelines", pays: "France", region: "Île-de-France", dateDebut: "07/02/23", dateFin: "11/02/23", label: "Scène nationale", representations: 5, spectateurs: 1346, jauge: 0, frequentation: 0, coords: [48.7717, 2.0189] },
+{ spectacle: "La Tendresse", lieu: "Centre Culturel Athéna", ville: "Auray", pays: "France", region: "Bretagne", dateDebut: "02/03/23", dateFin: "02/03/23", label: "non labellisé", representations: 1, spectateurs: 531, jauge: 0, frequentation: 0, coords: [47.6703, -2.9833] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de Cornouaille", ville: "Quimper", pays: "France", region: "Bretagne", dateDebut: "07/03/23", dateFin: "08/03/23", label: "Scène nationale", representations: 2, spectateurs: 1022, jauge: 0, frequentation: 0, coords: [47.9961, -4.0975] },
+{ spectacle: "Désobéir", lieu: "Théâtre Royal de Namur", ville: "Namur", pays: "Belgique", region: "International", dateDebut: "08/03/23", dateFin: "10/03/23", label: "non labellisé", representations: 5, spectateurs: 2178, jauge: 0, frequentation: 0, coords: [50.4674, 4.8718] },
+{ spectacle: "Désobéir", lieu: "Théâtre Le Bordeau", ville: "St Genis Pouilly", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "14/03/23", dateFin: "14/03/23", label: "non labellisé", representations: 1, spectateurs: 200, jauge: 0, frequentation: 0, coords: [46.2436, 6.0214] },
+{ spectacle: "La Tendresse", lieu: "Théâtre Royal de Namur", ville: "Namur", pays: "Belgique", region: "International", dateDebut: "15/03/23", dateFin: "17/03/23", label: "non labellisé", representations: 3, spectateurs: 1620, jauge: 0, frequentation: 0, coords: [50.4674, 4.8718] },
+{ spectacle: "Désobéir", lieu: "Le Quai des Arts", ville: "Rumilly", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "16/03/23", dateFin: "16/03/23", label: "non labellisé", representations: 1, spectateurs: 380, jauge: 0, frequentation: 0, coords: [45.8714, 5.9442] },
+{ spectacle: "Désobéir", lieu: "Scènes de Territoire - Agglomération du Bocage Bressuirais", ville: "Bressuire", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "21/03/23", dateFin: "21/03/23", label: "non labellisé", representations: 2, spectateurs: 659, jauge: 0, frequentation: 0, coords: [46.8403, -0.4881] },
+{ spectacle: "La Tendresse", lieu: "Espace Germinal", ville: "Fosses", pays: "France", region: "Île-de-France", dateDebut: "21/03/23", dateFin: "21/03/23", label: "non labellisé", representations: 1, spectateurs: 249, jauge: 0, frequentation: 0, coords: [49.0981, 2.5092] },
+{ spectacle: "La Tendresse", lieu: "Théâtre d'Angoulême", ville: "Angoulême", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "24/03/23", dateFin: "24/03/23", label: "Scène nationale", representations: 1, spectateurs: 687, jauge: 0, frequentation: 0, coords: [45.6489, 0.1561] },
+{ spectacle: "La Tendresse", lieu: "La Halle aux Grains", ville: "Bayeux", pays: "France", region: "Normandie", dateDebut: "27/03/23", dateFin: "27/03/23", label: "non labellisé", representations: 1, spectateurs: 360, jauge: 0, frequentation: 0, coords: [49.2764, -0.7031] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de Mende", ville: "Mende", pays: "France", region: "Occitanie", dateDebut: "30/03/23", dateFin: "30/03/23", label: "non labellisé", representations: 1, spectateurs: 630, jauge: 0, frequentation: 0, coords: [44.5176, 3.5014] },
+{ spectacle: "Désobéir", lieu: "SortieOuest", ville: "Hérault", pays: "France", region: "Occitanie", dateDebut: "04/04/23", dateFin: "04/04/23", label: "non labellisé", representations: 1, spectateurs: 253, jauge: 0, frequentation: 0, coords: [43.6086, 3.8793] },
+{ spectacle: "Désobéir", lieu: "Espace Culturel des Corbières", ville: "Lezignan-Corbières", pays: "France", region: "Occitanie", dateDebut: "06/04/23", dateFin: "06/04/23", label: "non labellisé", representations: 2, spectateurs: 428, jauge: 0, frequentation: 0, coords: [43.1992, 2.7589] },
+{ spectacle: "La Tendresse", lieu: "Espace des Arts, Scène nationale Chalon-sur-Saône", ville: "Chalon-sur-Saône", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "06/04/23", dateFin: "07/04/23", label: "Scène nationale", representations: 2, spectateurs: 500, jauge: 0, frequentation: 0, coords: [46.7807, 4.8536] },
+{ spectacle: "Désobéir", lieu: "Les 3E saison de l'Ernée", ville: "Laval", pays: "France", region: "Pays de la Loire", dateDebut: "11/04/23", dateFin: "11/04/23", label: "non labellisé", representations: 2, spectateurs: 425, jauge: 0, frequentation: 0, coords: [48.2878372305284, -0.9218163975048819] },
+{ spectacle: "La Tendresse", lieu: "L'Avant-Scène", ville: "Colombes", pays: "France", region: "Île-de-France", dateDebut: "11/04/23", dateFin: "11/04/23", label: "non labellisé", representations: 1, spectateurs: 779, jauge: 0, frequentation: 0, coords: [48.9228, 2.2519] },
+{ spectacle: "Désobéir", lieu: "Festival Mythos", ville: "Rennes", pays: "France", region: "Bretagne", dateDebut: "12/04/23", dateFin: "12/04/23", label: "non labellisé", representations: 1, spectateurs: 170, jauge: 0, frequentation: 0, coords: [48.1173, -1.6778] },
+{ spectacle: "La Tendresse", lieu: "Théâtre du Cormier", ville: "Cormeilles en Parisis", pays: "France", region: "Île-de-France", dateDebut: "13/04/23", dateFin: "13/04/23", label: "non labellisé", representations: 1, spectateurs: 292, jauge: 0, frequentation: 0, coords: [48.9969, 2.2011] },
+{ spectacle: "Désobéir", lieu: "Lycée Amiral Ronarc'h au centre culturel de Bellevue", ville: "Brest", pays: "France", region: "Bretagne", dateDebut: "14/04/23", dateFin: "14/04/23", label: "non labellisé", representations: 2, spectateurs: 350, jauge: 0, frequentation: 0, coords: [48.3904, -4.4860] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de Choisy-le-Roi", ville: "Choisy-le-Roi", pays: "France", region: "Île-de-France", dateDebut: "18/04/23", dateFin: "18/04/23", label: "non labellisé", representations: 1, spectateurs: 292, jauge: 0, frequentation: 0, coords: [48.7655, 2.4090] },
+{ spectacle: "La Tendresse", lieu: "L'Azimut", ville: "Chatenay-Malabry", pays: "France", region: "Île-de-France", dateDebut: "20/04/23", dateFin: "21/04/23", label: "Pôle national cirque", representations: 2, spectateurs: 810, jauge: 0, frequentation: 0, coords: [48.7655, 2.2797] },
+{ spectacle: "La Tendresse", lieu: "Théâtre TEAT", ville: "Saint-Denis", pays: "France", region: "La Réunion", dateDebut: "24/04/23", dateFin: "30/04/23", label: "non labellisé", representations: 2, spectateurs: 1714, jauge: 0, frequentation: 0, coords: [-20.8823, 55.4504] },
+{ spectacle: "La Tendresse", lieu: "Les Quinconces", ville: "Le Mans", pays: "France", region: "Pays de la Loire", dateDebut: "03/05/23", dateFin: "03/05/23", label: "Scène nationale", representations: 1, spectateurs: 759, jauge: 0, frequentation: 0, coords: [48.0061, 0.1996] },
+{ spectacle: "La Tendresse", lieu: "Grand Théâtre de Lorient", ville: "Lorient", pays: "France", region: "Bretagne", dateDebut: "05/05/23", dateFin: "06/05/23", label: "Centre Dramatique National", representations: 2, spectateurs: 1140, jauge: 0, frequentation: 0, coords: [47.7458, -3.3664] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de la Croix Rousse", ville: "Lyon", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "09/05/23", dateFin: "13/05/23", label: "non labellisé", representations: 5, spectateurs: 2613, jauge: 0, frequentation: 0, coords: [45.7640, 4.8357] },
+{ spectacle: "Désobéir", lieu: "Salle des fêtes de Sevran", ville: "Sevran", pays: "France", region: "Île-de-France", dateDebut: "26/05/23", dateFin: "26/05/23", label: "non labellisé", representations: 2, spectateurs: 665, jauge: 0, frequentation: 0, coords: [48.9384, 2.5271] },
+{ spectacle: "La Tendresse", lieu: "Théâtre National de Strasbourg", ville: "Strasbourg", pays: "France", region: "Grand Est", dateDebut: "04/10/23", dateFin: "14/10/23", label: "Centre Dramatique National", representations: 10, spectateurs: 5002, jauge: 0, frequentation: 0, coords: [48.5734, 7.7521] },
+{ spectacle: "La Tendresse", lieu: "Transversales", ville: "Verdun", pays: "France", region: "Grand Est", dateDebut: "06/11/23", dateFin: "06/11/23", label: "Scène conventionnée", representations: 1, spectateurs: 270, jauge: 0, frequentation: 0, coords: [49.1598, 5.3830] },
+{ spectacle: "La Tendresse", lieu: "PIVO Scène Conventionnée", ville: "Eaubonne", pays: "France", region: "Île-de-France", dateDebut: "09/11/23", dateFin: "09/11/23", label: "Scène conventionnée", representations: 1, spectateurs: 585, jauge: 0, frequentation: 0, coords: [48.9914, 2.2825] },
+{ spectacle: "La Tendresse", lieu: "Théâtre Rive Gauche", ville: "St Etienne Rouvray", pays: "France", region: "Normandie", dateDebut: "14/11/23", dateFin: "14/11/23", label: "Scène conventionnée", representations: 1, spectateurs: 550, jauge: 0, frequentation: 0, coords: [49.3778, 1.1050] },
+{ spectacle: "La Tendresse", lieu: "Théâtre l'Éclat", ville: "Pont-Audemer", pays: "France", region: "Normandie", dateDebut: "17/11/23", dateFin: "17/11/23", label: "non labellisé", representations: 1, spectateurs: 270, jauge: 0, frequentation: 0, coords: [49.3547, 0.5142] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de l'Arsenal", ville: "Val de Reuil", pays: "France", region: "Normandie", dateDebut: "20/11/23", dateFin: "20/11/23", label: "Scène conventionnée", representations: 1, spectateurs: 456, jauge: 0, frequentation: 0, coords: [49.2747, 1.2103] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de Grasse", ville: "Grasse", pays: "France", region: "Provence-Alpes-Côte d'Azur", dateDebut: "23/11/23", dateFin: "24/11/23", label: "Scène conventionnée", representations: 2, spectateurs: 877, jauge: 0, frequentation: 0, coords: [43.6584, 6.9247] },
+{ spectacle: "La Tendresse", lieu: "Théâtre de l'Olivier", ville: "Istres", pays: "France", region: "Provence-Alpes-Côte d'Azur", dateDebut: "28/11/23", dateFin: "28/11/23", label: "Scène conventionnée", representations: 1, spectateurs: 522, jauge: 0, frequentation: 0, coords: [43.5146, 4.9892] },
+{ spectacle: "La Tendresse", lieu: "Théâtre Romain Rolland", ville: "Villejuif", pays: "France", region: "Île-de-France", dateDebut: "01/12/23", dateFin: "01/12/23", label: "non labellisé", representations: 1, spectateurs: 571, jauge: 0, frequentation: 0, coords: [48.7938, 2.3625] },
+{ spectacle: "La Tendresse", lieu: "Théâtre des Bouffes du Nord", ville: "Paris", pays: "France", region: "Île-de-France", dateDebut: "06/12/23", dateFin: "23/12/23", label: "non labellisé", representations: 16, spectateurs: 5312, jauge: 0, frequentation: 0, coords: [48.8566, 2.3522] }
 
-        const tournees = [
-    { spectacle: "La Tendresse", lieu: "DSN", ville: "Dieppe", pays: "France", region: "Normandie", dateDebut: "09/01/25", dateFin: "10/01/25", label: "Scène nationale", representations: 2, spectateurs: 717, jauge: 499, frequentation: 71.84, coords: [49.9213, 1.0775] },
+
+
+        
+        ];
+        
+        
+        
+        
+        const tournees2024 = [
+        
+          { spectacle: "Désobéir", lieu: "Théâtre Forum Meyrin", ville: "Genève", pays: "Suisse", region: "International", dateDebut: "16/01/24", dateFin: "16/01/24", label: "non labellisé", representations: 1, spectateurs: 300, coords: [46.2044, 6.1432] },
+  { spectacle: "Désobéir", lieu: "Théâtre Nebia", ville: "Bienne", pays: "Suisse", region: "International", dateDebut: "18/01/24", dateFin: "19/01/24", label: "non labellisé", representations: 2, spectateurs: 600, coords: [47.1366, 7.2468] },
+  { spectacle: "Désobéir", lieu: "Théâtre de la Renaissance", ville: "Oullins", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "25/01/24", dateFin: "26/01/24", label: "Scène conventionnée", representations: 2, spectateurs: 600, coords: [45.7175, 4.8083] },
+  { spectacle: "Éducations Sentimentales", lieu: "Lycée Hippolyte Fontaine", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "29/01/24", dateFin: "01/02/24", label: "non labellisé", representations: 5, spectateurs: 150, coords: [47.31805165915572, 5.0511146550747315] },
+  { spectacle: "Éducations Sentimentales", lieu: "Lycée Simone Weil", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "05/02/24", dateFin: "09/02/24", label: "non labellisé", representations: 7, spectateurs: 210, coords: [47.32113379003822, 5.050602437367625] },
+  { spectacle: "Éducations Sentimentales", lieu: "Lycée Denis Diderot", ville: "Langres", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "12/02/24", dateFin: "16/02/24", label: "non labellisé", representations: 7, spectateurs: 210, coords: [47.8667, 5.3333] },
+  { spectacle: "Éducations Sentimentales", lieu: "Maison d’arrêt de Dijon", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "27/02/24", dateFin: "27/02/24", label: "non labellisé", representations: 1, spectateurs: 30, coords: [47.31260297497939, 5.050704195812775] },
+  { spectacle: "La Tendresse", lieu: "Théâtre Forum Meyrin", ville: "Genève", pays: "Suisse", region: "International", dateDebut: "29/02/24", dateFin: "01/03/24", label: "non labellisé", representations: 2, spectateurs: 624, jauge: 563, frequentation: 55.42, coords: [46.2044, 6.1432] },
+  { spectacle: "Éducations Sentimentales", lieu: "Lycée professionnel Henri Fertet", ville: "Gray", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "04/03/24", dateFin: "08/03/24", label: "non labellisé", representations: 7, spectateurs: 210, coords: [47.5000, 5.5000] },
+  { spectacle: "La Tendresse", lieu: "Théâtre Nebia", ville: "Bienne", pays: "Suisse", region: "International", dateDebut: "04/03/24", dateFin: "05/03/24", label: "non labellisé", representations: 2, spectateurs: 476, jauge: 380, frequentation: 62.63, coords: [47.1366, 7.2468] },
+  { spectacle: "La Tendresse", lieu: "Théâtre Edwige Feuillère", ville: "Vesoul", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "07/03/24", dateFin: "07/03/24", label: "Scène conventionnée", representations: 1, spectateurs: 648, jauge: 698, frequentation: 92.84, coords: [47.6200, 6.1650] },
+  { spectacle: "Désobéir", lieu: "Espace culturel Sarah Bernhardt", ville: "Goussainville", pays: "France", region: "Île-de-France", dateDebut: "08/03/24", dateFin: "08/03/24", label: "non labellisé", representations: 1, spectateurs: 300, coords: [49.0167, 2.4833] },
+  { spectacle: "Éducations Sentimentales", lieu: "Lycée Raoul Follereau", ville: "Belfort", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "11/03/24", dateFin: "15/03/24", label: "non labellisé", representations: 7, spectateurs: 210, coords: [47.6387, 6.8617] },
+  { spectacle: "Désobéir", lieu: "Auditorium Sophie Dessus", ville: "Uzerches", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "12/03/24", dateFin: "12/03/24", label: "non labellisé", representations: 1, spectateurs: 252, jauge: 300, frequentation: 84.00, coords: [45.5744, 1.6117] },
+  { spectacle: "La Tendresse", lieu: "Théâtre de Laval", ville: "Laval", pays: "France", region: "Pays de la Loire", dateDebut: "12/03/24", dateFin: "12/03/24", label: "Centre national de la Marionnette", representations: 1, spectateurs: 499, jauge: 550, frequentation: 90.73, coords: [48.0731, -0.7161] },
+  { spectacle: "La Tendresse", lieu: "Centre culturel Jacques Duhamel", ville: "Vitré", pays: "France", region: "Bretagne", dateDebut: "14/03/24", dateFin: "14/03/24", label: "non labellisé", representations: 1, spectateurs: 600, jauge: 750, frequentation: 80.00, coords: [48.1294, -1.2125] },
+  { spectacle: "Éducations Sentimentales", lieu: "Lycée Henri Vincenot", ville: "Louhans", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "18/03/24", dateFin: "22/03/24", label: "non labellisé", representations: 7, spectateurs: 210, coords: [46.6050, 5.2342] },
+  { spectacle: "La Tendresse", lieu: "Le TAP, Scène nationale", ville: "Poitiers", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "19/03/24", dateFin: "21/03/24", label: "Scène nationale", representations: 3, spectateurs: 1770, jauge: 698, frequentation: 84.53, coords: [46.5800, 0.3400] },
+  { spectacle: "Éducations Sentimentales", lieu: "Lycée Léon Blum", ville: "Le Creusot", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "25/03/24", dateFin: "28/03/24", label: "non labellisé", representations: 6, spectateurs: 180, coords: [46.8500, 4.4400] },
+  { spectacle: "Désobéir", lieu: "Théâtre de la Croix Rousse", ville: "Lyon", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "26/03/24", dateFin: "29/03/24", label: "non labellisé", representations: 5, spectateurs: 2955, jauge: 585, frequentation: 101.03, coords: [45.7580, 4.8360] },
+  { spectacle: "La Tendresse", lieu: "La Comédie de Saint-Étienne", ville: "Saint-Étienne", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "26/03/24", dateFin: "29/03/24", label: "Centre Dramatique National", representations: 4, spectateurs: 2404, jauge: 634, frequentation: 94.79, coords: [45.4392, 4.3878] },
+  { spectacle: "Éducations Sentimentales", lieu: "L’Essentiel-le", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "29/03/24", dateFin: "29/03/24", label: "non labellisé", representations: 1, spectateurs: 30, coords: [47.33167312992551, 5.07467729689571] },
+  { spectacle: "Éducations Sentimentales", lieu: "Lycée agricole Olivier de Serres", ville: "Quetigny", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "02/04/24", dateFin: "05/04/24", label: "non labellisé", representations: 5, spectateurs: 150, coords: [47.3480, 5.0865] },
+  { spectacle: "La Tendresse", lieu: "L’Odyssée", ville: "Périgueux", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "02/04/24", dateFin: "02/04/24", label: "Scène conventionnée", representations: 1, spectateurs: 767, jauge: 850, frequentation: 90.24, coords: [45.1863, 0.7225] },
+  { spectacle: "La Tendresse", lieu: "CIRCa, pôle nat. Cirque", ville: "Auch", pays: "France", region: "Occitanie", dateDebut: "05/04/24", dateFin: "05/04/24", label: "Pôle national cirque", representations: 1, spectateurs: 401, jauge: 700, frequentation: 57.29, coords: [43.6447, 0.5963] },
+  { spectacle: "Éducations Sentimentales", lieu: "Cercle laïque dijonnais", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "06/04/24", dateFin: "06/04/24", label: "non labellisé", representations: 1, spectateurs: 30, coords: [47.326517171180406, 5.0357926410775615] },
+  { spectacle: "Éducations Sentimentales", lieu: "INSPÉ – Université de Bourgogne", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "09/04/24", dateFin: "09/04/24", label: "non labellisé", representations: 1, spectateurs: 30, coords: [47.310350936779194, 5.039861329440881] },
+  { spectacle: "La Tendresse", lieu: "Scène nationale du Sud-Aquitain", ville: "Bayonne", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "09/04/24", dateFin: "10/04/24", label: "Scène nationale", representations: 2, spectateurs: 1200, jauge: 747, frequentation: 80.32, coords: [43.4921, -1.4742] },
+  { spectacle: "Éducations Sentimentales", lieu: "La Farand’Ouche", ville: "Barbirey-sur-Ouche", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "10/04/24", dateFin: "10/04/24", label: "non labellisé", representations: 1, spectateurs: 30, coords: [47.3231, 4.8770] },
+  { spectacle: "Éducations Sentimentales", lieu: "Espace Baudelaire", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "11/04/24", dateFin: "11/04/24", label: "non labellisé", representations: 1, spectateurs: 30, coords: [47.351097366184376, 5.043508304316012] },
+  { spectacle: "Éducations Sentimentales", lieu: "MJC Centre social Montchapet", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "12/04/24", dateFin: "12/04/24", label: "non labellisé", representations: 1, spectateurs: 30, coords: [47.333483196464734, 5.033080960639987] },
+  { spectacle: "La Tendresse", lieu: "Théâtre de Gascogne", ville: "Mont-de-Marsan", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "12/04/24", dateFin: "12/04/24", label: "Scène conventionnée", representations: 1, spectateurs: 400, jauge: 570, frequentation: 70.18, coords: [43.8881, -0.5054] },
+  { spectacle: "La Tendresse", lieu: "CDN Tours / Théâtre Universitaire", ville: "Tours", pays: "France", region: "Centre-Val de Loire", dateDebut: "17/04/24", dateFin: "18/04/24", label: "Centre Dramatique National", representations: 2, spectateurs: 1015, jauge: 520, frequentation: 97.60, coords: [47.3495, 0.7482] },
+  { spectacle: "La Tendresse", lieu: "Maison de la Culture de Tournai", ville: "Tournai", pays: "Belgique", region: "International", dateDebut: "23/04/24", dateFin: "23/04/24", label: "non labellisé", representations: 1, spectateurs: 577, jauge: 729, frequentation: 79.15, coords: [50.6064, 3.3878] },
+  { spectacle: "La Tendresse", lieu: "Théâtre de Rungis", ville: "Rungis", pays: "France", region: "Île-de-France", dateDebut: "26/04/24", dateFin: "26/04/24", label: "non labellisé", representations: 1, spectateurs: 352, jauge: 390, frequentation: 90.26, coords: [48.7566, 2.3685] },
+  { spectacle: "La Tendresse", lieu: "Maison de la Musique", ville: "Nanterre", pays: "France", region: "Île-de-France", dateDebut: "02/05/24", dateFin: "03/05/24", label: "non labellisé", representations: 2, spectateurs: 707, jauge: 774, frequentation: 45.67, coords: [48.8928, 2.2019] },
+  { spectacle: "La Tendresse", lieu: "MA, Scène nat. – Pays de Montbéliard", ville: "Montbéliard", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "07/05/24", dateFin: "07/05/24", label: "Scène nationale", representations: 1, spectateurs: 349, jauge: 390, frequentation: 89.49, coords: [47.5289, 6.1478] },
+  { spectacle: "La Tendresse", lieu: "Le Parvis, Scène nat. Tarbes - Pyrénées", ville: "Tarbes", pays: "France", region: "Occitanie", dateDebut: "13/05/24", dateFin: "13/05/24", label: "Scène nationale", representations: 1, spectateurs: 669, jauge: 680, frequentation: 98.38, coords: [43.2325, 0.0726] },
+  { spectacle: "La Tendresse", lieu: "L’Estive – Scène nationale de Foix et de l’Ariège", ville: "Foix", pays: "France", region: "Occitanie", dateDebut: "16/05/24", dateFin: "16/05/24", label: "Scène nationale", representations: 1, spectateurs: 596, jauge: 596, frequentation: 100.00, coords: [42.9644, 1.6053] },
+  { spectacle: "Éducations Sentimentales", lieu: "Théâtre Dijon Bourgogne (La Minoterie)", ville: "Dijon", pays: "France", region: "Bourgogne-Franche-Comté", dateDebut: "19/05/24", dateFin: "20/05/24", label: "Centre Dramatique National", representations: 2, spectateurs: 200, coords: [47.30979166169188, 5.026611226237927] },
+  { spectacle: "La Tendresse", lieu: "Château Rouge", ville: "Annemasse", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "22/05/24", dateFin: "23/05/24", label: "Scène conventionnée", representations: 2, spectateurs: 942, jauge: 1000, frequentation: 47.10, coords: [46.1947, 6.2374] },
+  { spectacle: "La Tendresse", lieu: "Festival Carrefour international de théâtre", ville: "Québec", pays: "Canada", region: "International", dateDebut: "02/06/24", dateFin: "04/06/24", label: "non labellisé", representations: 3, spectateurs: 820, jauge: 353, frequentation: 77.43, coords: [46.8139, -71.2080] },
+  { spectacle: "Désobéir", lieu: "Festival d’Anjou", ville: "Angers", pays: "France", region: "Pays de la Loire", dateDebut: "18/06/24", dateFin: "18/06/24", label: "non labellisé", representations: 1, spectateurs: 300, coords: [47.4784, -0.5632] },
+  { spectacle: "Éducations Sentimentales", lieu: "Festival Paris L’Été", ville: "Paris", pays: "France", region: "Île-de-France", dateDebut: "09/07/24", dateFin: "11/07/24", label: "non labellisé", representations: 3, spectateurs: 217, jauge: 72.33, frequentation: 100.00, coords: [48.8566, 2.3522] },
+  { spectacle: "La Tendresse", lieu: "Bonlieu Scène nationale Annecy", ville: "Annecy", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "08/10/24", dateFin: "11/10/24", label: "Scène nationale", representations: 4, spectateurs: 2479, jauge: 908, frequentation: 68.25, coords: [45.898, 6.128100657680382] },
+  { spectacle: "La Tendresse", lieu: "Dinan Agglomération", ville: "Dinan", pays: "France", region: "Bretagne", dateDebut: "15/10/24", dateFin: "15/10/24", label: "non labellisé", representations: 1, spectateurs: 437, jauge: 512, frequentation: 85.35, coords: [48.4558, -2.0422] },
+  { spectacle: "Éducations Sentimentales", lieu: "Théâtres de la Ville de Luxembourg", ville: "Luxembourg", pays: "Luxembourg", region: "International", dateDebut: "17/10/24", dateFin: "18/10/24", label: "non labellisé", representations: 2, spectateurs: 143, jauge: 70, frequentation: 102.14, coords: [49.6116, 6.1319] },
+  { spectacle: "La Tendresse", lieu: "Théâtres de la Ville de Luxembourg", ville: "Luxembourg", pays: "Luxembourg", region: "International", dateDebut: "22/10/24", dateFin: "25/10/24", label: "non labellisé", representations: 4, spectateurs: 662, jauge: 260, frequentation: 63.65, coords: [49.6116, 6.1319] },
+  { spectacle: "La Tendresse", lieu: "L’Archipel, SN", ville: "Perpignan", pays: "France", region: "Occitanie", dateDebut: "05/11/24", dateFin: "06/11/24", label: "Scène nationale", representations: 2, spectateurs: 600, jauge: 384, frequentation: 78.13, coords: [42.6976, 2.8954] },
+  { spectacle: "La Tendresse", lieu: "Le Quai, CDN", ville: "Angers", pays: "France", region: "Pays de la Loire", dateDebut: "12/11/24", dateFin: "13/11/24", label: "Centre Dramatique National", representations: 2, spectateurs: 1767, jauge: 906, frequentation: 97.52, coords: [47.4784, -0.5632] },
+  { spectacle: "Éducations Sentimentales", lieu: "DSN Dieppe, Scène nationale", ville: "Dieppe", pays: "France", region: "Normandie", dateDebut: "02/12/24", dateFin: "06/12/24", label: "Scène nationale", representations: 1, spectateurs: 69, jauge: 70, frequentation: 98.57, coords: [49.9213, 1.0775] },
+  { spectacle: "Éducations Sentimentales", lieu: "Comédie de Caen, CDN", ville: "Caen", pays: "France", region: "Normandie", dateDebut: "09/12/24", dateFin: "13/12/24", label: "Centre Dramatique National", representations: 2, spectateurs: 147, jauge: 73.5, frequentation: 100.00, coords: [49.1829, -0.3707] },
+  { spectacle: "La Tendresse", lieu: "Théâtre de Villefranche-sur-Saône", ville: "Villefranche-sur-Saône", pays: "France", region: "Auvergne-Rhône-Alpes", dateDebut: "20/12/24", dateFin: "20/12/24", label: "Scène conventionnée", representations: 1, spectateurs: 634, jauge: 650, frequentation: 97.54, coords: [45.9899, 4.7194] }
+        
+        
+        
+        ];
+
+        const tournees2025 = [
+   { spectacle: "La Tendresse", lieu: "DSN", ville: "Dieppe", pays: "France", region: "Normandie", dateDebut: "09/01/25", dateFin: "10/01/25", label: "Scène nationale", representations: 2, spectateurs: 717, jauge: 499, frequentation: 71.84, coords: [49.9213, 1.0775] },
     { spectacle: "La Tendresse", lieu: "La Comédie de Caen", ville: "Hérouville-Saint-Clair", pays: "France", region: "Normandie", dateDebut: "15/01/25", dateFin: "17/01/25", label: "Centre Dramatique National", representations: 3, spectateurs: 1964, jauge: 686, frequentation: 95.43, coords: [49.2039, -0.3261] },
     { spectacle: "La Tendresse", lieu: "Théâtre du Passage", ville: "Neuchâtel", pays: "Suisse", region: "International", dateDebut: "12/02/25", dateFin: "12/02/25", label: "non labellisé", representations: 1, spectateurs: 451, jauge: 524, frequentation: 86.07, coords: [46.9897, 6.9293] },
     { spectacle: "La Tendresse", lieu: "Théâtre André Malraux", ville: "Reuil-Malmaison", pays: "France", region: "Île-de-France", dateDebut: "04/03/25", dateFin: "04/03/25", label: "non labellisé", representations: 1, spectateurs: 709, jauge: 806, frequentation: 87.96, coords: [48.8789, 2.1888] },
@@ -135,7 +541,7 @@
     { spectacle: "La Tendresse", lieu: "Centre Culturel de Sarlat", ville: "Sarlat", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "11/04/25", dateFin: "11/04/25", label: "non labellisé", representations: 1, spectateurs: 404, jauge: 544, frequentation: 74.26, coords: [44.8890, 1.2168] },
     { spectacle: "La Tendresse", lieu: "Le Moulin du Roc", ville: "Niort", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "15/04/25", dateFin: "15/04/25", label: "Scène nationale", representations: 1, spectateurs: 625, jauge: 670, frequentation: 93.28, coords: [46.3241, -0.4579] },
     { spectacle: "La Tendresse", lieu: "Le Gallia", ville: "Saintes", pays: "France", region: "Nouvelle-Aquitaine", dateDebut: "17/04/25", dateFin: "17/04/25", label: "Scène conventionnée", representations: 1, spectateurs: 474, jauge: 487, frequentation: 97.33, coords: [45.7482, -0.6342] },
-    { spectacle: "La Tendresse", lieu: "ThéâtredelaCité", ville: "Toulouse", pays: "France", region: "Occitanie", dateDebut: "15/05/25", dateFin: "21/05/25", label: "Centre Dramatique National", representations: 6, spectateurs: 4840, jauge: 801, frequentation: 100.70, coords: [43.6042, 1.4438] },
+    { spectacle: "La Tendresse", lieu: "Théâtre de la Cité - CDN de Toulouse", ville: "Toulouse", pays: "France", region: "Occitanie", dateDebut: "15/05/25", dateFin: "21/05/25", label: "Centre Dramatique National", representations: 6, spectateurs: 4840, jauge: 801, frequentation: 100.70, coords: [43.6042, 1.4438] },
     { spectacle: "La Tendresse", lieu: "Théâtre des Bouffes Parisiens", ville: "Paris", pays: "France", region: "Île-de-France", dateDebut: "25/04/25", dateFin: "12/07/25", label: "non labellisé", representations: 49, spectateurs: null, jauge: 550, frequentation: null, coords: [48.8695, 2.3362] }, // Bouffes Parisiens: 4 Rue Monsigny, 75002 Paris
     { spectacle: "Désobéir", lieu: "Centre Culturel Jacques Prévert", ville: "Villeparisis", pays: "France", region: "Île-de-France", dateDebut: "07/03/25", dateFin: "07/03/25", label: "non labellisé", representations: 1, spectateurs: null, jauge: null, frequentation: null, coords: [48.9428, 2.6042] },
     { spectacle: "Désobéir", lieu: "Théâtre de Gif-sur-Yvette", ville: "Gif-sur-Yvette", pays: "France", region: "Île-de-France", dateDebut: "22/03/25", dateFin: "22/03/25", label: "non labellisé", representations: 1, spectateurs: 325, jauge: 467, frequentation: 69.59, coords: [48.7008, 2.1337] },
@@ -143,39 +549,67 @@
     { spectacle: "Désobéir", lieu: "Théâtre de La Concorde", ville: "Paris", pays: "France", region: "Île-de-France", dateDebut: "24/06/25", dateFin: "28/06/25", label: "non labellisé", representations: 6, spectateurs: 769, jauge: 130, frequentation: 98.50, coords: [48.8578, 2.3210] }, // Théâtre de la Concorde: 53 Rue de la Concorde, 75008 Paris
     { spectacle: "Éducations Sentimentales", lieu: "Théâtre de Saint-Quentin-en-Yvelines", ville: "Saint-Quentin-en-Yvelines", pays: "France", region: "Île-de-France", dateDebut: "06/02/25", dateFin: "08/02/25", label: "Scène nationale", representations: 3, spectateurs: 584, jauge: 230, frequentation: 84.64, coords: [48.7708, 2.0175] },
     { spectacle: "Éducations Sentimentales", lieu: "Le Quartz", ville: "Brest", pays: "France", region: "Bretagne", dateDebut: "13/05/25", dateFin: "16/05/25", label: "Scène nationale", representations: 3, spectateurs: 143, jauge: 70, frequentation: 86.14, coords: [48.3908, -4.4855] }
-];
+        ];
 
-     
+        // Initialisation de la carte
+        const map = L.map('map', { zoomControl: true });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Variables globales
+        let markers = [];
+        let markerBounds = L.latLngBounds([]);
+        let currentYear = '2025';
 
         // Fonction pour définir la couleur du marqueur en fonction du spectacle
-        function getMarkerColor(spectacle) {
+        function getMarkerColor(spectacle, annee) {
+            // Couleur de base par spectacle
+            let color;
             switch (spectacle) {
                 case "Éducations Sentimentales":
-                    return "#00a933"; // Vert
+                    color = "#00a933"; // Vert
+                    break;
                 case "La Tendresse":
-                    return "#9973e1"; // Violet
+                    color = "#9973e1"; // Violet
+                    break;
                 case "Désobéir":
-                    return "#5b9bd5"; // Bleu
+                    color = "#5b9bd5"; // Bleu
+                    break;
                 default:
-                    return "#000000"; // Noir par défaut
-            }
-        }
-        
-        let markerBounds = L.latLngBounds([]);
-        let totalSpectateurs = 0;
-        let frequentations = [];
-        
-        tournees.forEach(tournee => {
-            // Calcul des statistiques
-            totalSpectateurs += tournee.spectateurs;
-            if (tournee.frequentation) {
-                frequentations.push(tournee.frequentation);
+                    color = "#000000"; // Noir par défaut
             }
             
-            // Contenu du popup avec la fréquentation ajoutée
+            // Si on affiche toutes les années, on adapte le style pour distinguer les années
+          if (currentYear === 'all') {
+               if (annee === 2024) {
+                    // Pour 2024: cercle avec bordure seulement
+                   return { fillColor: color, color: '#333', fillOpacity: 1, weight: 1 };
+               } else {
+                    // Pour 2025: cercle plein avec bordure
+                return { fillColor: color, color: '#333', fillOpacity: 1, weight: 1 };
+               }
+            }
+         //   
+            // Pour une seule année: cercle plein
+            return { fillColor: color, color: color, fillOpacity: 1, weight: 1 };
+        }
+
+        // Fonction pour créer un marqueur personnalisé
+        function createMarker(tournee) {
+            const style = getMarkerColor(tournee.spectacle, tournee.annee);
+            
+            // Créer un cercle au lieu d'un marqueur classique pour mieux contrôler l'apparence
+            const circle = L.circleMarker(tournee.coords, {
+                radius: 8,
+                ...style
+            });
+            
+            // Contenu du popup
             const popupContent = `
                 <div class="popup-content">
                     <strong>Spectacle:</strong> ${tournee.spectacle}<br>
+                 <!--   <strong>Année:</strong> ${tournee.annee}<br> -->
                     <strong>Lieu:</strong> ${tournee.lieu}<br>
                     <strong>Ville:</strong> ${tournee.ville}<br>
                     <strong>Pays:</strong> ${tournee.pays}<br>
@@ -184,37 +618,111 @@
                     <strong>Représentations:</strong> ${tournee.representations}<br>
                     <strong>Spectateurs:</strong> ${tournee.spectateurs}<br>
                     ${tournee.jauge ? `<strong>Jauge:</strong> ${tournee.jauge}<br>` : ''}
-                    ${tournee.frequentation ? `<strong>Frequentation:</strong> ${tournee.frequentation.toFixed(2)}%<br>` : ''}
+                    ${tournee.frequentation ? `<strong>Fréquentation:</strong> ${tournee.frequentation.toFixed(2)}%<br>` : ''}
                     <strong>Label:</strong> ${tournee.label}
                 </div>
             `;
             
-            markerBounds.extend(tournee.coords);
+            circle.bindPopup(popupContent);
+            return circle;
+        }
+
+        // Fonction pour afficher les tournées selon l'année sélectionnée
+        function showTournees(year) {
+            currentYear = year;
             
-            // Créer un marqueur avec la couleur spécifique
-            L.marker(tournee.coords, {
-                icon: L.divIcon({
-                    className: 'custom-icon',
-                    html: `<div style="width: 10px; height: 10px; background-color: ${getMarkerColor(tournee.spectacle)}; border-radius: 50%;"></div>`
-                })
-            })
-            .addTo(map)
-            .bindPopup(popupContent);
+            // Supprimer tous les marqueurs existants
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+            markerBounds = L.latLngBounds([]);
+            
+            // Déterminer quelles données afficher
+            let tourneesToShow = [];
+         
+            if (year === '2022') {
+                tourneesToShow = tournees2022;
+            } else if (year === '2023') {
+                tourneesToShow = tournees2023;
+            } else if (year === '2024') {
+                tourneesToShow = tournees2024;
+            } else if (year === '2025') {
+                tourneesToShow = tournees2025;
+            } else if (year === 'all') {
+                tourneesToShow = [...tournees2022, ...tournees2023, ...tournees2024, ...tournees2025];
+            }
+            
+            // Ajouter les marqueurs
+            tourneesToShow.forEach(tournee => {
+                const marker = createMarker(tournee);
+                marker.addTo(map);
+                markers.push(marker);
+                markerBounds.extend(tournee.coords);
+            });
+            
+            // Ajuster la vue de la carte
+            if (markers.length > 0) {
+                map.fitBounds(markerBounds, {
+                    padding: [30, 30],
+                    maxZoom: 12
+                });
+            }
+            
+            // Mettre à jour les statistiques
+            updateStatistics(tourneesToShow);
+            
+            // Mettre à jour la légende
+            updateLegend(year);
+        }
+
+        // Fonction pour mettre à jour les statistiques
+        function updateStatistics(tournees) {
+            let totalSpectateurs = 0;
+            let frequentations = [];
+            
+            tournees.forEach(tournee => {
+                if (tournee.spectateurs) {
+                    totalSpectateurs += tournee.spectateurs;
+                }
+                if (tournee.frequentation) {
+                    frequentations.push(tournee.frequentation);
+                }
+            });
+            
+            const moyenneFrequentation = frequentations.length > 0 
+                ? frequentations.reduce((a, b) => a + b, 0) / frequentations.length
+                : 0;
+            
+            // Mise à jour des statistiques dans l'interface
+            document.getElementById('total-spectateurs').textContent = `Total spectateurs: ${totalSpectateurs}`;
+            document.getElementById('moyenne-frequentation').textContent = `Fréquentation moyenne: ${moyenneFrequentation.toFixed(2)}%`;
+            document.getElementById('annee-selectionnee').textContent = 
+                currentYear === 'all' ? 'Année : de 2022 à 2025, ' : `Année: ${currentYear}`;
+        }
+
+        // Fonction pour mettre à jour la légende
+        function updateLegend(year) {
+            // Masquer toutes les légendes
+            document.querySelectorAll('.legend').forEach(legend => {
+                legend.style.display = 'none';
+            });
+            
+            // Afficher la légende appropriée
+            if (year === '2024') {
+                document.getElementById('legend-2024').style.display = 'block';
+            } else if (year === '2025') {
+                document.getElementById('legend-2025').style.display = 'block';
+            } else if (year === 'all') {
+                document.getElementById('legend-all').style.display = 'block';
+            }
+        }
+
+        // Gestionnaire d'événement pour le sélecteur d'année
+        document.getElementById('yearSelect').addEventListener('change', function() {
+            showTournees(this.value);
         });
-        
-        // Calcul de la moyenne de fréquentation
-        const moyenneFrequentation = frequentations.length > 0 
-            ? frequentations.reduce((a, b) => a + b, 0) / frequentations.length
-            : 0;
-        
-        // Mise à jour des statistiques
-        document.getElementById('total-spectateurs').textContent = `Total spectateurs: ${totalSpectateurs}`;
-        document.getElementById('moyenne-frequentation').textContent = `Fréquentation moyenne: ${moyenneFrequentation.toFixed(2)}%`;
-        
-        map.fitBounds(markerBounds, {
-            padding: [30, 30],
-            maxZoom: 12
-        });
+
+        // Initialisation : afficher les données de 2025 par défaut
+        showTournees('2025');
         
         // Ajout du bouton de réinitialisation
         L.Control.ResetView = L.Control.extend({
@@ -227,10 +735,12 @@
                 
                 L.DomEvent.on(button, 'click', function(e) {
                     e.preventDefault();
-                    map.fitBounds(markerBounds, {
-                        padding: [30, 30],
-                        maxZoom: 12
-                    });
+                    if (markers.length > 0) {
+                        map.fitBounds(markerBounds, {
+                            padding: [30, 30],
+                            maxZoom: 12
+                        });
+                    }
                 });
                 
                 return container;
