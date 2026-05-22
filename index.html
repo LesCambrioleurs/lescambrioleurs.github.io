@@ -89,7 +89,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>Lieux de tournées des spectacles (2023 - 2026)</h1>
+        <h1>LIEUX DE TOURNÉES DES SPECTACLES (2023 - 2026)</h1>
         <div class="year-selector">
             <label for="yearSelect">Année :</label>
             <select id="yearSelect">
@@ -467,9 +467,9 @@
                 if (t.frequentation) frequentations.push(t.frequentation);
             });
             const moy = frequentations.length > 0 ? frequentations.reduce((a,b) => a+b, 0) / frequentations.length : 0;
-            document.getElementById('total-representations').textContent = `Total représentations: ${totalRepresentations}`;
-            document.getElementById('total-spectateurs').textContent = `Total spectateurs: ${totalSpectateurs}`;
-            document.getElementById('moyenne-frequentation').textContent = `Fréquentation moyenne: ${moy.toFixed(2)}%`;
+            document.getElementById('total-representations').textContent = `Total représentations : ${totalRepresentations}`;
+            document.getElementById('total-spectateurs').textContent = `Total spectateurs : ${totalSpectateurs}`;
+            document.getElementById('moyenne-frequentation').textContent = `Fréquentation moyenne : ${moy.toFixed(2)}%`;
             document.getElementById('annee-selectionnee').textContent = currentYear === 'all' ? 'Année : de 2023 à 2026' : `Année: ${currentYear}`;
         }
 
