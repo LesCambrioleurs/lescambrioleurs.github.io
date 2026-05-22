@@ -6,23 +6,85 @@
     <title>Tournées des spectacles de 2023 à 2026</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; }
+        /* Polices personnalisées */
+        body {
+            font-family: "Avenir Next", "Avenir", "Nunito", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
         #map { flex: 1; background: #f0f0f0; }
-        .popup-content { font-size: 14px; }
+        .popup-content { font-size: 14px; font-family: "Avenir Next", "Avenir", sans-serif; }
         .popup-content strong { display: block; margin-bottom: 5px; }
-        .legend { background-color: white; padding: 10px; border-radius: 5px; border: 1px solid #ccc; position: absolute; bottom: 10px; left: 10px; z-index: 1000; }
+        .legend {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            font-family: "Avenir Next", "Avenir", sans-serif;
+        }
         .legend div { display: flex; align-items: center; margin-bottom: 5px; }
         .legend span { width: 20px; height: 20px; display: inline-block; margin-right: 10px; }
         .legend .circle { border-radius: 50%; }
         .legend .square { border-radius: 0; }
-        .header { background: white; padding: 15px 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
-        .header h1 { margin: 0; color: #333; font-size: 1.5em; }
-        .year-selector { display: flex; gap: 10px; align-items: center; }
+        .header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            color: #333;
+            font-size: 1.5em;
+            font-family: "Avenir Black", "Avenir Next Heavy", "Avenir Next", "Avenir", sans-serif;
+            font-weight: 900;
+        }
+        .year-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-family: "Avenir Next", "Avenir", sans-serif;
+        }
         .year-selector label { font-weight: bold; margin-right: 5px; }
-        .year-selector select { padding: 5px 10px; border-radius: 4px; border: 1px solid #ccc; background-color: white; }
-        .reset-view-button { background: white !important; padding: 5px 10px !important; border-radius: 5px !important; border: 2px solid rgba(0,0,0,0.2) !important; cursor: pointer !important; font-weight: bold !important; }
+        .year-selector select {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: white;
+            font-family: "Avenir Next", "Avenir", sans-serif;
+        }
+        .reset-view-button {
+            background: white !important;
+            padding: 5px 10px !important;
+            border-radius: 5px !important;
+            border: 2px solid rgba(0,0,0,0.2) !important;
+            cursor: pointer !important;
+            font-weight: bold !important;
+            font-family: "Avenir Next", "Avenir", sans-serif;
+        }
         .reset-view-button:hover { background: #f8f9fa !important; }
-        .stat-box { background-color: white; padding: 10px; border-radius: 5px; border: 1px solid #ccc; position: absolute; top: 80px; right: 10px; z-index: 1000; font-size: 14px; }
+        .stat-box {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 80px;
+            right: 10px;
+            z-index: 1000;
+            font-size: 14px;
+            font-family: "Avenir Next", "Avenir", sans-serif;
+        }
     </style>
 </head>
 <body>
