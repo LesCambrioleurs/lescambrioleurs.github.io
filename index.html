@@ -5,13 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tournées des spectacles de 2023 à 2026</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
+        <style>
+        /* ========== POLICES AVENIR (auto-hébergées via GitHub raw) ========== */
+        @font-face {
+            font-family: 'Avenir';
+            src: url('https://raw.githubusercontent.com/platanus/fonts/master/Avenir/Avenir-Book.woff2') format('woff2'),
+                 url('https://raw.githubusercontent.com/platanus/fonts/master/Avenir/Avenir-Book.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Avenir';
+            src: url('https://raw.githubusercontent.com/platanus/fonts/master/Avenir/Avenir-Black.woff') format('woff');
+            font-weight: 900;
+            font-style: normal;
+        }
+
         /* Reset et base */
         * {
             box-sizing: border-box;
         }
         body {
-            font-family: "Avenir Next", "Avenir", "Nunito", sans-serif;
+            font-family: 'Avenir', "Avenir Next", sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -32,7 +47,7 @@
         /* Popup */
         .popup-content {
             font-size: 14px;
-            font-family: "Avenir Next", "Avenir", sans-serif;
+            font-family: 'Avenir', "Avenir Next", sans-serif;
             max-width: 300px;
         }
         .popup-content strong {
@@ -40,39 +55,33 @@
             margin-bottom: 5px;
         }
 
-        /* ========== HEADER CORRIGÉ ========== */
+        /* ========== HEADER ========== */
         .header {
             background: white;
-            padding: 15px 25px; /* anciennement padding: 12px 20px; */
+            padding: 15px 25px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
             z-index: 1001;
-            /* ↑ Au-dessus des contrôles Leaflet (z-index: 1000) */
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Le titre sera centré dans le header */
             position: relative;
             flex-shrink: 0;
-            min-height: 80px;   /* ← anciennement 65px */
-            /* Hauteur suffisante pour le logo */;
+            min-height: 80px;
         }
 
-        /* Le logo est positionné en absolu à gauche */
+        /* Logo */
         .header-logo {
             position: absolute;
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
-                height: 80px;       /* ← anciennement 48px */
-            /* Hauteur du logo sur desktop */
+            height: 80px;
             width: auto;
             display: flex;
             align-items: center;
             z-index: 2;
             flex-shrink: 0;
         }
-
-        /* Le SVG s'adapte à la hauteur du conteneur */
         .header-logo svg {
             height: 100%;
             width: auto;
@@ -84,12 +93,11 @@
             margin: 0;
             color: #222;
             font-size: 1.25em;
-            font-family: "Avenir Black", "Avenir Next Heavy", "Avenir Next", "Avenir", sans-serif;
+            font-family: 'Avenir', "Avenir Next", sans-serif;
             font-weight: 900;
             line-height: 1.3;
             text-align: center;
             max-width: 65%;
-            /* Évite que le titre ne touche le logo */;
         }
 
         /* ========== PANNEAUX (inchangé) ========== */
@@ -98,7 +106,6 @@
             z-index: 1000;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .panel-toggle {
             background: white;
             border: 1px solid #ccc;
@@ -109,7 +116,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: "Avenir Next", "Avenir", sans-serif;
+            font-family: 'Avenir', "Avenir Next", sans-serif;
             font-size: 13px;
             font-weight: 600;
             color: #333;
@@ -130,7 +137,6 @@
         .panel-toggle.expanded svg:last-child {
             transform: rotate(180deg);
         }
-
         .panel-content {
             background-color: white;
             padding: 10px;
@@ -164,7 +170,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: "Avenir Next", "Avenir", sans-serif;
+            font-family: 'Avenir', "Avenir Next", sans-serif;
             font-size: 13px;
             font-weight: 600;
             color: #333;
@@ -215,12 +221,8 @@
             margin-right: 8px;
             flex-shrink: 0;
         }
-        .legend-panel .panel-content .circle {
-            border-radius: 50%;
-        }
-        .legend-panel .panel-content .square {
-            border-radius: 0;
-        }
+        .legend-panel .panel-content .circle { border-radius: 50%; }
+        .legend-panel .panel-content .square { border-radius: 0; }
         .legend-panel .panel-content hr {
             margin: 8px 0;
             border: none;
@@ -262,7 +264,7 @@
             border: 2px solid rgba(0, 0, 0, 0.2) !important;
             cursor: pointer !important;
             font-weight: bold !important;
-            font-family: "Avenir Next", "Avenir", sans-serif;
+            font-family: 'Avenir', "Avenir Next", sans-serif;
             font-size: 16px !important;
             display: flex !important;
             align-items: center !important;
@@ -278,21 +280,15 @@
                 padding: 8px 10px;
                 min-height: 60px;
             }
-
             .header-logo {
                 left: 8px;
                 height: 50px;
-                /* Plus petit mais lisible */;
             }
-
             .header h1 {
                 font-size: 0.8em;
                 max-width: 55%;
                 padding-left: 35px;
-                /* Compense le logo à gauche */;
             }
-
-            /* Sélecteur d'années mobile */
             .year-select-visible {
                 top: 62px;
                 right: 10px;
@@ -300,8 +296,6 @@
                 font-size: 12px;
                 width: 220px;
             }
-
-            /* Légende */
             .legend-panel {
                 bottom: 10px;
                 left: 10px;
@@ -326,8 +320,6 @@
                 height: 14px;
                 margin-right: 6px;
             }
-
-            /* Statistiques */
             .stats-panel {
                 top: 105px;
                 right: 10px;
@@ -341,8 +333,6 @@
                 max-height: 25vh;
                 font-size: 11px;
             }
-
-            /* Contrôles Leaflet */
             .leaflet-control-zoom {
                 font-size: 16px !important;
             }
@@ -354,31 +344,26 @@
             }
         }
 
-        /* Très petits écrans */
         @media (max-width: 480px) {
             .header {
                 padding: 6px 8px;
                 min-height: 52px;
             }
-
             .header-logo {
                 left: 6px;
                 height: 45px;
             }
-
             .header h1 {
                 font-size: 0.7em;
                 max-width: 50%;
                 padding-left: 28px;
             }
-
             .year-select-visible {
                 top: 54px;
                 padding: 5px 8px;
                 font-size: 11px;
                 width: 200px;
             }
-
             .stats-panel {
                 top: 94px;
             }
@@ -392,19 +377,16 @@
                 width: 200px;
                 max-width: 200px;
             }
-
             .legend-panel .panel-content {
                 font-size: 11px;
                 padding: 6px;
             }
-
             .panel-toggle {
                 padding: 6px 10px;
                 font-size: 12px;
             }
         }
 
-        /* Mode paysage sur mobile */
         @media (max-height: 500px) and (orientation: landscape) {
             .year-select-visible {
                 top: 52px;
@@ -420,7 +402,6 @@
             }
         }
 
-        /* Scrollbar personnalisée */
         .panel-content::-webkit-scrollbar {
             width: 6px;
         }
